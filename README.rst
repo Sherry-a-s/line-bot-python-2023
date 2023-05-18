@@ -77,9 +77,13 @@ Usage:
 
     @handler.add(MessageEvent, message=TextMessage)
     def handle_message(event):
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=event.message.text))
+        messsage = text=event.message.text
+        if re.match('照片',message):
+            image_message = ImageSendMessage(
+                original_content_url='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.truemii.com.tw%2Fcontent%2F20211022400967-990105&psig=AOvVaw1RZyEOZ9GyEhasbf_o0q6f&ust=1684457336534000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJjXttzS_f4CFQAAAAAdAAAAABAE')
+                line_bot_api.reply_message(event.reply_token, image_message)
+        else:
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
 
 
     if __name__ == "__main__":
